@@ -80,29 +80,29 @@ class Body(pygame.sprite.Sprite):
 
         if(dx < self.radius*2 and dy < self.radius*2):
             pass
+        else: 
+            try:
+                r= math.sqrt(dx**2 + dy**2)
 
-        try:
-            r= math.sqrt(dx**2 + dy**2)
+                #calculate total acceleration 
+                accel = G * (otherbody.mass/r**2)
 
-            #calculate total acceleration 
-            accel = G * (otherbody.mass/r**2)
+                #calculate the angle between both bodies
+                theta = math.asin(dy/r)
 
-            #calculate the angle between both bodies
-            theta = math.asin(dy/r)
+                #calculate component acceleration
+                if self.y_pos > otherbody.y_pos:
+                    self.set_y_acc(-math.sin(theta)*accel)
+                else:
+                    self.set_y_acc(math.sin(theta)*accel)
 
-            #calculate component acceleration
-            if self.y_pos > otherbody.y_pos:
-                self.set_y_acc(-math.sin(theta)*accel)
-            else:
-                self.set_y_acc(math.sin(theta)*accel)
+                if self.x_pos > otherbody.x_pos:
+                    self.set_x_acc(-math.sin(theta)*accel)
+                else:
+                    self.set_x_acc(math.sin(theta)*accel)
 
-            if self.x_pos > otherbody.x_pos:
-                self.set_x_acc(-math.sin(theta)*accel)
-            else:
-                self.set_x_acc(math.sin(theta)*accel)
-
-        except ZeroDivisionError:
-            pass
+            except ZeroDivisionError:
+                pass
 
 group = pygame.sprite.Group()
 BODYCOUNT= 5
