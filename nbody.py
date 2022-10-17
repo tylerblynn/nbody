@@ -19,8 +19,9 @@ G = 1
 class Body(pygame.sprite.Sprite):
     def __init__(self, mass, radius, start_position, color, x_vel, y_vel):
         super().__init__()
-
-        self.image = pygame.Surface((6),(6))
+    
+        width_height = (radius*2,radius*2)
+        self.image = pygame.Surface(width_height)
         self.image.fill("Black")
         self.rect = self.image.get_rect(center = start_position)
         pygame.draw.circle(self.image, color, (radius, radius), radius, 0)
